@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How fast can you type buddy?</title>
+</head>
+<body>
+	<div class="message"></div>
+	<textarea name="words" cols="75" rows="5" disabled ></textarea><br>
+		<button type="button">Start</button>
+		<div class="finalMessage"></div>
+
+	<script>
+		const wording = [
+			"Do you like JavaScript as much as I do?",
+			"Man I love being productive during the day."
+		]
+
+		const message = document.querySelector(".message");
+		const playText = document.querySelector("textarea");
+		const button = document.querySelector("button");
+		const finalMessageField = document.querySelector(".finalMessage");
+		let startTime, endTime, counter;		
+
+		button.addEventListener("click", function() {
+			const buttonText = this.innerText.toLowerCase();
+			if (buttonText == "start") {
+				playText.removeAttribute("disabled");
+				playGame();
+			} else if (buttonText == "done") {
+				playText.setAttribute("disabled", true);
+				button.innerText = "Start";
+				endPlay();
+			}
+		});
+
+		function playGame() {
+			const randomNumberLowerThen = (number) => {
+				return Math.floor(Math.random() * number);
+			}	
+
+			let date = new Date();
+			startTime = date.getTime();
+			button.innerText = "Done";
+			playText.value = "";
+			playText.focus();
+
+			message.innerHTML = wording[randomNumberLowerThen(2)];
+		}
+
+		function endPlay() {
+			let date = new Date();
+			endTime = date.getTime();
+			let totalTime = ((endTime - startTime) / 1000);
+
+			let string = playText.value;
+			let wordCount = wordCounter(string);
+			let speed = Math.round((wordCount / totalTime) * 60);
+			let finalMessage;
+
+			if (string != message.innerText) {
+				finalMessage = compareWords(string, message.innerText);
+			} else {
+				finalMessage = `You typed ${speed} words per minute`;
+			}
+			finalMessageField.innerHTML = finalMessage;
+		
+		}
+
+		function wordCounter(wordsInString) {
+			let response = wordsInString.split(" ").length;
+
+			return response;
+		}
+
+		function compareWords(inputString, givenMessage) {
+			let words1 = inputString.split(" ");
+			let words2 = givenMessage.split(" ");
+			let cnt = 0;
+
+			words1.forEach(function(item, index) {
+				if(item == words2[index]) {
+					cnt++;
+				}
+			});
+
+			return `${cnt} correct out of ${words2.length}`;
+		}
+	</script>
+</body>
+</html>
+
+<!-- Everytime make the next word bold in the message -->
+<!-- on enter key press for button call endplay function -->
+<!-- Style the game -->
+<!-- Make a timer that counts up and stops counting when the done button is clicked -->
