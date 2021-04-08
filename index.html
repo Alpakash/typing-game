@@ -30,7 +30,7 @@
 		document.addEventListener("keyup", function(e) {
 			let buttonText = button.innerText.toLowerCase();
 			
-			if (e.key == "s") {
+			if (e.keyCode == 83) {
 				if (buttonText == "start") {
 					button.click();
 				}
@@ -39,28 +39,39 @@
 
 		playText.addEventListener("keydown", function(e) {
 			let buttonText = button.innerText.toLowerCase();
+			let string = playText.value;
 
-			if (e.key == "Enter") {
+			if (e.keyCode == 13) {
 				if (buttonText == "done") {
-					button.click();
-				}
+					if (wordCounter(string) == wordCounter(message.innerText)) {
+						endPlay();
+						button.click();
+					} else if (wordCounter(string) < wordCounter(message.innerText)) {
+						correctWords.innerText = "Please write down all words before finishing."
+					} else if (wordCounter(string) > wordCounter(message.innerText)) {
+						correctWords.innerText = "You've written to many words... remove some words to match the given sentence."
+					}
+				} 
 			}
-
-			if (e.key == "space") {
-				console.log("space");
-			}
+			
+			makeWordBold(string, message.innerText);
 		});
 
 		button.addEventListener("click", function() {
 			const buttonText = this.innerText.toLowerCase();
 			if (buttonText == "start") {
 				playText.removeAttribute("disabled");
+				correctWords.innerText = "";
+				typingSpeed.innerText = "";
 
 				playGame();
 			} else if (buttonText == "done") {
 				playText.setAttribute("disabled", true);
 				button.innerText = "Start";
-				endPlay();
+				let string = playText.value;
+				if (string == message.innerText) {
+					endPlay();
+				}
 			}
 		});
 
@@ -89,11 +100,10 @@
 			console.log(wordCount);
 			let speed = Math.round((wordCount / totalTime) * 60);
 			let correctWordsMessage;
+			makeWordBold(string, message.innerText);
 
-			if (string != message.innerText) {
-				correctWordsMessage = compareWords(string, message.innerText);
-				typingSpeedMessage = `You typed ${speed} words per minute`;
-			}
+			correctWordsMessage = compareWords(string, message.innerText);
+			typingSpeedMessage = `You typed ${speed} words per minute`;
 
 			correctWords.innerHTML = correctWordsMessage;
 			typingSpeed.innerHTML = typingSpeedMessage;
@@ -117,6 +127,24 @@
 			});
 
 			return `${cnt} correct out of ${words2.length}`;
+		}
+
+		function makeWordBold(inputString, givenMessage) {
+			let inputText = inputString.split(" ");
+			let messsage = givenMessage.split(" ");
+			
+			console.log(inputText);
+			console.log(messsage);
+
+			if (inputText.length > messsage.length) {
+				return message.innerHTML = givenMessage;
+			}
+
+			if (inputText.length <= messsage.length) {
+				messsage[inputText.length-1] = messsage[inputText.length-1].bold();
+				return message.innerHTML = messsage.join(" ");
+			}
+			
 		}
 	</script>
 </body>
