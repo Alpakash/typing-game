@@ -4,13 +4,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style.css">
 	<title>How fast can you type buddy?</title>
 </head>
 <body>
 	<div class="message"></div>
-	<textarea name="words" cols="75" rows="5" disabled ></textarea><br>
+	<textarea name="words" cols="75" rows="2" disabled ></textarea><br>
 		<button type="button">Start</button>
-		<div class="finalMessage"></div>
+		<div class="correctWords"></div>
+		<div class="typingSpeed"></div>
 
 	<script>
 		const wording = [
@@ -21,13 +23,39 @@
 		const message = document.querySelector(".message");
 		const playText = document.querySelector("textarea");
 		const button = document.querySelector("button");
-		const finalMessageField = document.querySelector(".finalMessage");
+		const correctWords = document.querySelector(".correctWords");
+		const typingSpeed = document.querySelector(".typingSpeed");
 		let startTime, endTime, counter;		
+
+		document.addEventListener("keyup", function(e) {
+			let buttonText = button.innerText.toLowerCase();
+			
+			if (e.key == "s") {
+				if (buttonText == "start") {
+					button.click();
+				}
+			}
+		});
+
+		playText.addEventListener("keydown", function(e) {
+			let buttonText = button.innerText.toLowerCase();
+
+			if (e.key == "Enter") {
+				if (buttonText == "done") {
+					button.click();
+				}
+			}
+
+			if (e.key == "space") {
+				console.log("space");
+			}
+		});
 
 		button.addEventListener("click", function() {
 			const buttonText = this.innerText.toLowerCase();
 			if (buttonText == "start") {
 				playText.removeAttribute("disabled");
+
 				playGame();
 			} else if (buttonText == "done") {
 				playText.setAttribute("disabled", true);
@@ -44,6 +72,7 @@
 			let date = new Date();
 			startTime = date.getTime();
 			button.innerText = "Done";
+
 			playText.value = "";
 			playText.focus();
 
@@ -57,16 +86,17 @@
 
 			let string = playText.value;
 			let wordCount = wordCounter(string);
+			console.log(wordCount);
 			let speed = Math.round((wordCount / totalTime) * 60);
-			let finalMessage;
+			let correctWordsMessage;
 
 			if (string != message.innerText) {
-				finalMessage = compareWords(string, message.innerText);
-			} else {
-				finalMessage = `You typed ${speed} words per minute`;
+				correctWordsMessage = compareWords(string, message.innerText);
+				typingSpeedMessage = `You typed ${speed} words per minute`;
 			}
-			finalMessageField.innerHTML = finalMessage;
-		
+
+			correctWords.innerHTML = correctWordsMessage;
+			typingSpeed.innerHTML = typingSpeedMessage;
 		}
 
 		function wordCounter(wordsInString) {
@@ -91,8 +121,3 @@
 	</script>
 </body>
 </html>
-
-<!-- Everytime make the next word bold in the message -->
-<!-- on enter key press for button call endplay function -->
-<!-- Style the game -->
-<!-- Make a timer that counts up and stops counting when the done button is clicked -->
