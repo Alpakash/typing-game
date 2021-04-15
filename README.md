@@ -20,3 +20,5 @@ How fast can you type?!
 2. ~~On enter key press for button call endplay function~~
 3. Style the game
 4. Make a timer that counts up and stops counting when the done button is clicked
+5. Refactor the code
+6. Add sentences
