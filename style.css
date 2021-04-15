@@ -1,3 +1,52 @@
 body {
 	background-color: rgb(230, 230, 230);
+	font-family: "Segoe UI";
+}
+
+.flexbox {
+	display: flex;
+	margin: 200px 0;
+	flex-direction: column;
+	align-items: center;
+}
+
+.message {
+	text-align: center;
+	font-weight: 100;
+}
+
+textarea {
+	font-size: 24px;
+	border-radius: 20px;
+	padding: 10px;
+	/* if correct green, if incorrect red */
+	/* background-color: rgba(29, 165, 52, 0.4); */
+}
+
+button {
+	padding: 20px 50px;
+	font-size: 32px;
+	background-color: black;
+	color: #fff;
+	border-radius: 7px;
+	border: 0;
+	
+}
+
+button:hover {
+	padding: 20px 50px;
+	font-size: 32px;
+	/* if correct green, if incorrect red */
+	background-color: red;
+	background-color: rgba(29, 165, 52, 0.712);
+	color: #fff;
+	cursor: pointer;
+}
+
+.correctWords {
+
+}
+
+.typingSpeed {
+
 }
