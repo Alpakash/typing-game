@@ -18,7 +18,7 @@ How fast can you type?!
 1. ~~Calculate the amount words typed per minute~~
 2. ~~Make the word bold in the message that needs to be typed in the input~~
 2. ~~On enter key press for button call endplay function~~
-3. Style the game
+3. ~~Style the game~~
 4. Make a timer that counts up and stops counting when the done button is clicked
 5. Refactor the code
 6. Add sentences

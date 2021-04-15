@@ -1,5 +1,4 @@
 body {
-	background-color: rgb(230, 230, 230);
 	font-family: "Segoe UI";
 }
 
@@ -17,10 +16,9 @@ body {
 
 textarea {
 	font-size: 24px;
-	border-radius: 20px;
-	padding: 10px;
-	/* if correct green, if incorrect red */
-	/* background-color: rgba(29, 165, 52, 0.4); */
+	border-radius: 30px;
+	padding: 20px;
+	outline: none;
 }
 
 button {
@@ -30,13 +28,12 @@ button {
 	color: #fff;
 	border-radius: 7px;
 	border: 0;
-	
+	margin: 30px 0;
 }
 
 button:hover {
 	padding: 20px 50px;
 	font-size: 32px;
-	/* if correct green, if incorrect red */
 	background-color: red;
 	background-color: rgba(29, 165, 52, 0.712);
 	color: #fff;
@@ -44,9 +41,18 @@ button:hover {
 }
 
 .correctWords {
-
+	color: red;
 }
 
 .typingSpeed {
+	margin-top: 20px;
+	font-size: 20px;
+	font-style: italic;
+}
 
+.logo {
+	font-size: 40px;
+	top: 50px;
+	left: 220px;
+	position: absolute;
 }
